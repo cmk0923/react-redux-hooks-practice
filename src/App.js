@@ -1,39 +1,50 @@
-import React, {useEffect} from "react";
-import {useSelector, useDispatch} from 'react-redux';
-import './App.css'
-import allActions from './actions'
+import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import './App.css';
+import allActions from './actions';
+import TodoListContainer from './components/TodoListContainer';
 
 function App() {
-  const counter = useSelector(state => state.counter)
-  const currentUser = useSelector(state => state.currentUser)
+	const counter = useSelector((state) => state.counter);
+	const currentUser = useSelector((state) => state.currentUser);
 
-  const dispatch = useDispatch()
+	const dispatch = useDispatch();
 
-  const user = {name: 'cmk'}
+	const user = { name: 'cmk' };
 
-  useEffect(() => {
-    dispatch(allActions.userActions.setUser(user))
-  }, [])
+	useEffect(() => {
+		dispatch(allActions.userActions.setUser(user));
+	}, []);
 
-  return (
-    <div className='App'>
-      {
-        currentUser.loggedIn ?
-        <>
-        <h1>Hello, {currentUser.user.name}</h1>
-        <button onClick={() => dispatch(allActions.userActions.logOut())}>Logout</button>
-        </>
-        :
-        <>
-          <h1>Login</h1>
-          <button onClick={() => dispatch(allActions.userActions.setUser(user))}>Login as cmk</button>
-        </>
-      }
-      <h1>Counter: {counter}</h1>
-      <button onClick={() => dispatch(allActions.counterActions.increment())}>+</button>
-      <button onClick={() => dispatch(allActions.counterActions.decrement())}>-</button>
-    </div>
-  )
+	return (
+		<div className="App">
+			{currentUser.loggedIn ? (
+				<>
+					<h1>Hello, {currentUser.user.name}</h1>
+					<button onClick={() => dispatch(allActions.userActions.logOut())}>
+						Logout
+					</button>
+				</>
+			) : (
+				<>
+					<h1>Login</h1>
+					<button
+						onClick={() => dispatch(allActions.userActions.setUser(user))}
+					>
+						Login as cmk
+					</button>
+				</>
+			)}
+			<h1>Counter: {counter}</h1>
+			<button onClick={() => dispatch(allActions.counterActions.increment())}>
+				+
+			</button>
+			<button onClick={() => dispatch(allActions.counterActions.decrement())}>
+				-
+			</button>
+			<TodoListContainer />
+		</div>
+	);
 }
 
 export default App;
